@@ -24,11 +24,7 @@ while len(scoreboard.correct_guessed) < 50 and is_game_on:
     for state in range(len(states)):
 
         if answer == "Exit":
-            missing_state = []
-            for given_state in states:
-                if given_state not in scoreboard.correct_guessed:
-                    missing_state.append(given_state)
-
+            missing_state = [given_state for given_state in states if given_state not in scoreboard.correct_guessed]
             new_csv = pandas.DataFrame(missing_state)
             new_csv.to_csv('states_to_learn.csv')
             is_game_on = False
