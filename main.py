@@ -11,9 +11,6 @@ turtle.addshape(image)
 turtle.shape(image)
 
 data = pandas.read_csv("50_states.csv")
-
-# x_cor = data.x[data.state == 'Ohio']
-# print(x_cor)
 is_game_on = True
 
 while len(scoreboard.correct_guessed) < 50 and is_game_on:
@@ -24,11 +21,7 @@ while len(scoreboard.correct_guessed) < 50 and is_game_on:
     for state in range(len(states)):
 
         if answer == "Exit":
-            missing_state = []
-            for given_state in states:
-                if given_state not in scoreboard.correct_guessed:
-                    missing_state.append(given_state)
-
+            missing_state = [given_state for given_state in states if given_state not in scoreboard.correct_guessed]
             new_csv = pandas.DataFrame(missing_state)
             new_csv.to_csv('states_to_learn.csv')
             is_game_on = False
@@ -42,18 +35,3 @@ while len(scoreboard.correct_guessed) < 50 and is_game_on:
             tim.goto(x_cor, y_cor)
             tim.write(f'{answer}')
             scoreboard.add_guessed(answer)
-#
-# data_list = data.state.to_list()
-# answered_list = scoreboard.correct_guessed
-# to_learn = []
-#
-# for state in data_list:
-#     if state not in answered_list:
-#         to_learn.append(state)
-
-# to_learn_dict = {
-#     "unanswered": [to_learn],
-# }
-#
-# new_csv = pandas.DataFrame(to_learn_dict)
-# new_csv.to_csv('states_to_learn.csv')
